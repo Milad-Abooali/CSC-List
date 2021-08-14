@@ -1,0 +1,32 @@
+{
+  "name": "milad-abooali/csc-list",
+  "description": "Country / Stats / City - Class",
+  "type": "library",
+  "require": {
+    "php": ">=7.0.3"
+  },
+  "license": "GNU",
+  "authors": [
+    {
+      "name": "Milad Abooali",
+      "email": "m.abooali@hotmail.com",
+      "role": "Developer"
+    }
+  ],
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "printIP\\": "src"
+    },
+    "files": [
+      "src/cscList.php"
+    ]
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "cscList\\cscList"
+      ]
+    }
+  }
+}

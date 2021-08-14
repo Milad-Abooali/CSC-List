@@ -1,2 +1,2 @@
 # CSC-List
-Cuntry / Stats / City  - Class
+Country/ Stats / City  - Class
