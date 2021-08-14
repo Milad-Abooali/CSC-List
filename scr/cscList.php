@@ -1,14 +1,17 @@
 <?php
 
-class CountryState {
-	
-	/**
-	An array of countries, iso_2_code, iso_3_code, iso_num_code, iso_something code :-), states/counties, international dial code.
-	It can be used to quickly generate web forms.  You can do a split on the counties/states string.
-	
-	Please feel free to correct and build on this.
-	*/
-	private $sorted_countries = [
+/**
+ **************************************************************************
+ * @package          csc-list
+ * @author           Milad Abooali <m.abooali@hotmail.com>
+ * @copyright        2021 (c) Codebox.ir
+ */
+
+namespace cscList;
+
+class CSC {
+
+	private $data = [
  ['Afghanistan', 'AF', 'AFG', '004', 'ISO 3166-2:AF', 'Badakhshan|Badghis|Baghlan|Balkh|Bamian|Farah|Faryab|Ghazni|Ghowr|Helmand|Herat|Jowzjan|Kabol|Kandahar|Kapisa|Konar|Kondoz|Laghman|Lowgar|Nangarhar|Nimruz|Oruzgan|Paktia|Paktika|Parvan|Samangan|Sar-e Pol|Takhar|Vardak|Zabol', '93'],
  ['Aland Islands', 'AX', 'ALA', '248', 'ISO 3166-2:AX', 'Aland Islands', ''],
  ['Albania', 'AL', 'ALB', '008', 'ISO 3166-2:AL', 'Berat|Bulqize|Delvine|Devoll [Bilisht]|Diber [Peshkopi]|Durres|Elbasan|Fier|Gjirokaster|Gramsh|Has [Krume]|Kavaje|Kolonje [Erseke]|Korce|Kruje|Kucove|Kukes|Kurbin|Lezhe|Librazhd|Lushnje|Malesi e Madhe [Koplik]|Mallakaster [Ballsh]|Mat [Burrel]|Mirdite [Rreshen]|Peqin|Permet|Pogradec|Puke|Sarande|Shkoder|Skrapar [Corovode]|Tepelene|Tirane [Tirana]|Tirane [Tirana]|Tropoje [Bajram Curri]|Vlore', '355'],
@@ -264,7 +267,7 @@ class CountryState {
 	# returns a list of all countries
 	public function countries(){
 		$list = array();
-		foreach($this->sorted_countries as $rarray){
+		foreach($this->data as $rarray){
 			array_push($list, $rarray[0]);
 		}
 		sort($list);
@@ -274,7 +277,7 @@ class CountryState {
 	# returns a list of all states
 	public function states(){
 		$list = array();
-		foreach($this->sorted_countries as $rarray){
+		foreach($this->data as $rarray){
 			$t = explode("|", $rarray[5]);
 			foreach($t as $m){
 				array_push($list, $m);
@@ -289,7 +292,7 @@ class CountryState {
 		if(!empty($country) && (is_string($country) || is_numeric($country))){
 			$list = array();
 			$country = strtoupper($country);
-			foreach($this->sorted_countries as $rarray){
+			foreach($this->data as $rarray){
 				if((is_string($country) && ((strlen($country) > 3 && strtolower($rarray[0]) == strtolower($country)) || (strlen($country) == 2 && strtoupper($rarray[1]) == $country) || (strlen($country) == 3 && strtoupper($rarray[2]) == $country) || (strlen($country) > 3 && strtoupper(str_replace(" ", "", $rarray[4])) == str_replace(" ", "", $country)))) || (is_numeric($country) && $rarray[3] == $country)){
 					$t = explode("|", $rarray[5]);
 					for($i=0; $i<sizeof($t); $i++){
@@ -309,7 +312,7 @@ class CountryState {
 		if(!empty($country) && (is_string($country) || is_numeric($country))){
 			$list = array();
 			$country = strtoupper($country);
-			foreach($this->sorted_countries as $rarray){
+			foreach($this->data as $rarray){
 				if((is_string($country) && ((strlen($country) > 3 && strtolower($rarray[0]) == strtolower($country)) || (strlen($country) == 2 && strtoupper($rarray[1]) == $country) || (strlen($country) == 3 && strtoupper($rarray[2]) == $country) || (strlen($country) > 3 && strtoupper(str_replace(" ", "", $rarray[4])) == str_replace(" ", "", $country)))) || (is_numeric($country) && $rarray[3] == $country)){
 					$last = sizeof($rarray) - 1;
 					$list = array_combine(array("name", "iso2", "iso3", "iso_num", "something_code", "dial_code", "states"), array($rarray[0], $rarray[1], $rarray[2], $rarray[3], $rarray[4], $rarray[$last], $this->getStates($rarray[1])));
@@ -327,7 +330,7 @@ class CountryState {
 		if(!empty($state) && is_string($state)){
 			$list = array();
 			$state = strtolower($state);
-			foreach($this->sorted_countries as $rarray){
+			foreach($this->data as $rarray){
 				if(preg_match("@\b{$state}\b@", strtolower($rarray[5]))){
 					//array_push($list, $rarray[0]);
 					$last = sizeof($rarray) - 1;
