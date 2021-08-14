@@ -16,7 +16,7 @@
   "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
-      "printIP\\": "src"
+      "cscList\\": "src"
     },
     "files": [
       "src/cscList.php"
